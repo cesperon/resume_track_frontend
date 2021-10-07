@@ -11,6 +11,8 @@ export default new Vuex.Store({
     user: null,
     token: null,
     userApps: null,
+    popularStack: null,
+    appStatistics: null,
   }, 
 
   mutations: {
@@ -31,12 +33,18 @@ export default new Vuex.Store({
     setUserApp(state, apps){
       state.userApps = apps;
     },
+    setPopularStack(state, stack){
+      state.popularStack = stack;
+    },
+    setAppStatistics(state, stats){
+      state.appStatistics = stats;
+    },
   },
 
   actions: {
     async addUserApp(state, apps){
 
-      try{
+        try{
             const newApp = {
                 "company_name": apps.company_name,
                 "position": apps.position_name,
@@ -69,6 +77,17 @@ export default new Vuex.Store({
                 console.log(err);
             }    
     },
+    async registerUser(state, user){
+        try{
+            let res = await axios.post('signup', user);
+            console.log(res.data);
+            this.commit('setUser', res.data.data.newUser);
+            this.commit('setToken', res.data.data.token);
+
+        }catch(err){
+            console.log(err);
+        }
+    },
     async getUserApp(state){
 
         try{
@@ -96,14 +115,30 @@ export default new Vuex.Store({
         }
 
     },
-
     async updateUserApp(state, id){
-
         try{
           const res = await axios.post('/applications/update', id);
           await this.dispatch('getUserApp');
         }catch(err){
           console.log(err);
+          }
+
+    },
+    async getPopularStack(state){
+        try{
+            const res = await axios.post('/applications/popular-stack');
+            this.commit('setPopularStack', res.data.data);
+        }catch(err){
+            console.log(err);
+        }
+    },
+    async getApplicationStatistics(state){
+        try{
+            const res = await axios.post('/applications/statistics');
+            console.log('res', res);
+            this.commit('setAppStatistics', res.data.data);
+        }catch(err){
+            console.log(err);
         }
 
     },
@@ -133,6 +168,12 @@ export default new Vuex.Store({
     userApps(state) {
       return state.userApps;
     },
+    popularStack(state){
+      return state.popularStack
+    },
+    getAppStats(state){
+      return state.appStatistics;
+    }
   },
   modules: {
   },

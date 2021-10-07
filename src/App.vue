@@ -1,13 +1,21 @@
 <template>
-  <div id="app">
-    <div v-if="isLoggedIn">
-      <Navbar class="Navbar"></Navbar>
+  <div>
+    <header>
+      <Navbar v-if="isLoggedIn" class="Navbar"></Navbar>
+    </header>
+    <div id="app" class="d-flex justify-content-center">
+      <div v-if="isLoggedIn">
+        <!-- <Navbar class="Navbar"></Navbar> -->
+      </div>
+      <transition 
+          name="fade"
+          enter-active-class="animate__animated animate__fadeInLeft"
+          leave-active-class="animate_animated animate__fadeOutLeft" 
+          mode="out-in"
+      >
+        <router-view/>
+      </transition>
     </div>
-    <div id="nav">
-      <!-- <router-link v-if="!isLoggedIn"to="/">Home</router-link> |
-      <router-link v-if="isLoggedIn" to="/Dashboard">About</router-link> -->
-    </div>
-    <router-view/>
     <footer v-if="!isLoggedIn">Resume Track © 2021</footer>
   </div>
 </template>
@@ -16,6 +24,7 @@
 import Navbar from '@/components/Navbar.vue';
 import { mapGetters } from 'vuex';
 import store from '@/store';
+import "animate.css";
 // const isAuthenticated = store.getters['isLoggedIn'];
 
 export default {
@@ -26,6 +35,32 @@ export default {
   computed: {
     ...mapGetters(["isLoggedIn"]),
   },
+  methods: {
+
+      slideTransition(){
+          const slide = {
+            template: `
+              <transition name="slide">
+                <div class="foo">...</div>
+              </transition>
+            `
+          }
+          return slide;          
+
+      },
+
+      fadeTransition(){
+            const fade = {
+              template: `
+                <transition name="fade">
+                  <div class="bar">...</div>
+                </transition>
+              `
+              } 
+              return fade;  
+
+      },
+  }
 };
 </script>
 
@@ -38,18 +73,6 @@ export default {
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 body{
   background:white;
 }
@@ -65,5 +88,15 @@ footer {
   height:250px;
   font-size:20px;
   color:$white;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease
 }
 </style>

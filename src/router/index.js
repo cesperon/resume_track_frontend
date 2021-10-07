@@ -6,6 +6,7 @@ import AppDetail from '../views/AppDetail.vue'
 Vue.use(VueRouter);
 import store from '@/store';
 const isAuthenticated = store.getters['isLoggedIn'];
+import {createRouter, createWebHistory} from 'vue-router'
 
 const routes = [
   {
@@ -29,7 +30,7 @@ const routes = [
       },
     },
     {
-      path: '/dashboard/details',
+      path: '/details',
       name: 'AppDetail',
       component: AppDetail,
     },

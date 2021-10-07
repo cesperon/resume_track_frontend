@@ -70,16 +70,18 @@ export default {
 				"password": this.password,
 				"email": this.email,
 				}
+				// store.dispatch('registerUser', newUser);
 
 				let res = await axios.post('signup', newUser);
 				console.log("new user", res.data);
 				store.commit("setUser",res.data.data.newUser);
-      			store.commit("setToken", res.data.data.etoken);
+      			store.commit("setToken", res.data.data.token);
 				this.$router.push('/dashboard');
 			}
 			catch(e){
 				console.log(e)
 			}
+			this.closeModal();
 
 	
 		},

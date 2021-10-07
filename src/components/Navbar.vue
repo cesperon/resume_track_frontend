@@ -1,7 +1,7 @@
 <template>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  <img alt="App logo" src="../assets/nav_logo.svg">
-	  <a class="navbar-brand" href="#">Resume Track</a>
+	  <h2 class="navbar-brand" href="#">Resume Track</h2>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -11,7 +11,7 @@
 	        <router-link class="nav-link" to="/dashboard">Applications</router-link> 
 	      </li>
 	      <li class="nav-item active">
-	      	<router-link class="nav-link" to="/dashboard/details">Statistics</router-link>
+	      	<router-link class="nav-link" to="/details">Statistics</router-link>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" v-on:click="logout" href="/">Logout</a>
@@ -52,9 +52,17 @@ export default {
 
 <style lang="scss">
 
-.nav-item:hover {
 
-	font-weight:900;
+a{
+	font-weight:bold;
+	color: $blue;
+	text-decoration: none;
+	margin-right: 1em;
+}
+
+a:hover,
+a.router-link-active{
+	border-bottom: 3px solid $blue;
 }
 
 </style>

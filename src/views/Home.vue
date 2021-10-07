@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="app" class="d-flex justify-content-center">
+    <div id="app">
       <div class = "login-image">
         <h1 class="title">Resume Track</h1>
         <img alt="App logo" src="../assets/nav_logo.svg">
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Login from '@/components/Login.vue';
+import Login from '@/components/Login.vue'
 import register from '@/components/registerForm.vue'
 
 export default {
@@ -39,7 +39,7 @@ export default {
 </script>
 <style lang="scss">
 #app{
-  margin-top:80px;
+  margin-top:100px;
   .login-image{
     margin-right:100px;
   }
@@ -49,6 +49,11 @@ export default {
   .footer{
     background:white;
     height:100px;
+  }
+  h1{
+    color:$blue;
+    font-weight:bold;
+    font-size:50px;
   }
 }
 </style>

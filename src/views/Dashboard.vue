@@ -1,7 +1,19 @@
 <template>
   <div class="about justify-content-center">
 <!--     <h1>Dashboard {{user.firstName}} @ {{user.email}}</h1> -->
-    <button class="add"v-on:click="openModal">+</button>
+    <div class="dashboardBtns d-flex justify-content-center">
+      <button class="add" v-on:click="openModal">+</button>
+      <div class="form d-flex">
+        <div class="form-outline">
+          <input type="search" id="form1" class="form-control" />
+          <label class="form-label" for="form1">Search</label>
+        </div>
+        <button type="button" class="searchBtn btn btn-primary">
+          <b-icon icon="search"></b-icon>
+        </button>
+      </div>
+    </div>
+
     <appForm v-if="popUp" @clicked="openModal" @addSuccess="getApplications"></appForm>
     <div v-if="appDetailOpen">
       <appPopup @clicked="openAppModal" :appData="appData"></appPopup>
@@ -123,15 +135,23 @@
   color:$blue;
   font-size:20px;
   font-weight:bold;
+  height:40px;
+  width:100px;
 }
 .add:hover{
   color:$green;
 }
+.searchBtn{
+
+  height:40px;
+}
+.form{
+  margin-left:50px;
+}
 .appList {
   background:white;
-  width:50%;
-  margin-left:25%;
-  margin-top:40px;
+  width:100%;
+  margin-top:20px;
   .app{
     background:$blue;
     color:$white;

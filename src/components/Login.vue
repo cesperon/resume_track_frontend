@@ -56,6 +56,7 @@ export default {
       
       store.dispatch('setToken', this.userDetails.data.token);
       store.dispatch('setUser', this.userDetails.data.userinfo);
+      store.dispatch('getPopularStack');
 
       this.$router.push("/dashboard");
     },
