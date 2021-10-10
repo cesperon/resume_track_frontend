@@ -50,8 +50,6 @@ export default {
   				var lstLabels = [];
   				var lstData = [];
   				var stack = store.getters['popularStack'];
-  				// stack.forEach(st => lstLabels.push(st.key));
-  				// stack.forEach(st => lstData.push(st.value));
   				for(var i = 0; i < 15; i++){
   					lstLabels.push(stack[i].key);
   					lstData.push(stack[i].value);
