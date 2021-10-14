@@ -1,5 +1,6 @@
 
 <script>
+// hi
 import { Line } from 'vue-chartjs'
 import store from '@/store'
 
