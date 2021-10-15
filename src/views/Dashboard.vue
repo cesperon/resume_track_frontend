@@ -159,6 +159,7 @@
     border-radius:10px;
     height:50px;
     font-size:20px;
+    box-shadow: 8px 8px 6px #888888;
 
   }
   .app:hover {

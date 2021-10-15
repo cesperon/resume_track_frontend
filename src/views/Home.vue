@@ -1,14 +1,15 @@
 <template>
   <div>
     <div id="app">
-      <div class = "login-image">
-        <h1 class="title">Resume Track</h1>
+      <particles-bg color="#112031" type="fountain" :bg="true" /> 
+      <div class = "login-image ">
+        <h1 class="title" >Resume Track</h1>
         <img alt="App logo" src="../assets/nav_logo.svg">
-        <p>Organize and view application data <br> with Resume Track</p>
+        <p class="loginText">Organize and view application data <br> with Resume Track</p>
       </div>
-      <Login @clicked="openRegister"></Login>
+      <Login class= "loginPortal" @clicked="openRegister"></Login>
       <register v-if="registerModal" @clicked="openRegister"></register>
-      <footer class="footer"></footer>
+<!--       <footer class="footer"></footer> -->
     </div>
   </div>
 </template>
@@ -16,12 +17,13 @@
 <script>
 import Login from '@/components/Login.vue'
 import register from '@/components/registerForm.vue'
-
+import { ParticlesBg } from "particles-bg-vue";
 export default {
   name: 'Home',
   components: {
     Login,
     register,
+    ParticlesBg,
   },
   data() {
     return {
@@ -39,9 +41,15 @@ export default {
 </script>
 <style lang="scss">
 #app{
+  .loginPortal{
+    box-shadow: 8px 8px 6px #888888;
+  }
   margin-top:100px;
   .login-image{
-    margin-right:100px;
+    
+  }
+  .loginText{
+    color:white;
   }
   img {
      font-size:500px;

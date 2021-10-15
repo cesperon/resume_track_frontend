@@ -16,7 +16,7 @@
         <router-view/>
       </transition>
     </div>
-    <footer v-if="!isLoggedIn">Resume Track © 2021</footer>
+   <!--  <footer v-if="!isLoggedIn">Resume Track © 2021</footer> -->
   </div>
 </template>
 

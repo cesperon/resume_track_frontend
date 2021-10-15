@@ -1,7 +1,7 @@
 <template>
     <div class="popup">
-      <div class="popup-inner form text-center justify-content-center">
-        <formNav></formNav>
+      <div class="popup-inner form">
+        <formNav class="formNav"></formNav>
         <div class="field">
           <em>Company Name: </em>{{company_name}}
         </div>
@@ -96,9 +96,10 @@ export default {
 
   .popup-inner {
     background: white;
-    padding: 32px;
+    // padding: 32px;
     width:500px;
     border-radius:10px;
+    padding-top:0;
 
   }
   em{
@@ -106,4 +107,5 @@ export default {
   }
 
 }
+
 </style>
