@@ -8,16 +8,13 @@
           <input v-model="searchText" type="search" id="form1" class="form-control" />
         </div>
         <div class="row justify-content-center">
-          <button class="add col-2 me-2 mt-2" v-on:click="openModal">+</button>
-          <button type="button" class="col-2 searchBtn btn btn-primary mt-2">
-            <b-icon icon="search"></b-icon>
-          </button>
-        </div>
+          <button class="add col-2 mt-2" v-on:click="openModal">+</button>
           <b-dropdown id="dropdown-offset" offset="25" text="filter by" class="m-2 col-2 ">
             <b-dropdown-item href="#" @click="filterApps('company')">company name</b-dropdown-item>
             <b-dropdown-item href="#" @click="filterApps('company')">position</b-dropdown-item>
             <b-dropdown-item href="#" @click="filterApps('company')">date</b-dropdown-item>
           </b-dropdown>
+        </div>
       </div>
     </div>
 
@@ -173,10 +170,15 @@
 #form1{
   width:600px;
 }
+.about{
+  margin-top:100px;
+}
 .add {
   color:$blue;
   font-size:20px;
   font-weight:bold;
+  height:40px;
+  width:40px;
 
 }
 .add:hover{
