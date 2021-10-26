@@ -1,47 +1,47 @@
 <template>
 		<div class='container'>
-			<div class="section">
-				<b-button variant="primary" v-on:click="openGraph">
+<!-- 				<b-button variant="primary" v-on:click="openGraph">
 					averages
-				</b-button>
-					<div class="lstView" v-if="graph">
-						<div class="d-flex justify-content-start">
-							<span><b>Daily average</b></span> 
-							<span>{{daily}}</span>
+				</b-button> -->
+					<div class="row">
+						<div class="col-6">
+							<barGraph class="bar"></barGraph>
 						</div>
-						<div class="d-flex justify-content-start">
-							<span><b>Weekly average</b></span> 
-							{{weekly}}
+						<div class="avgText col-6 mt-4">
+							<div class="d-flex justify-content-start mb-2">
+								<span><b>Daily average</b></span> 
+								<span>{{daily}}</span>
+							</div>
+							<div class="d-flex justify-content-start mb-2">
+								<span><b>Weekly average</b></span> 
+								{{weekly}}
+							</div>
+							<div class="d-flex justify-content-start mb-2">
+								<span><b>Monthly average</b></span> 
+								{{monthly}}
+							</div>
+							<div class="d-flex justify-content-start mb-2">
+								<span><b>Total Applications</b></span> 
+								<span>{{totalApplications}}</span>
+							</div>
+							<div class="d-flex justify-content-start mb-2">
+								<span><b>Total Applied</b></span> 
+								{{totalApplied}}
+							</div>
+							<div class="d-flex justify-content-start mb-2">
+								<span><b>Applied Yesterday</b></span> 
+								<span>{{yesterday}}</span>
+							</div>
+							<div class="d-flex justify-content-start mb-2">
+								<span><b>Last Week</b></span> 
+								{{lastWeek}}
+							</div>
+							<div class="d-flex justify-content-start mb-2">
+								<span><b>Last Month</b></span> 
+								{{lastMonth}}
+							</div>
 						</div>
-						<div class="d-flex justify-content-start">
-							<span><b>Monthly average</b></span> 
-							{{monthly}}
-						</div>
-						<div class="d-flex justify-content-start">
-							<span><b>Total Applications</b></span> 
-							<span>{{totalApplications}}</span>
-						</div>
-						<div class="d-flex justify-content-start">
-							<span><b>Total Applied</b></span> 
-							{{totalApplied}}
-						</div>
-						<div class="d-flex justify-content-start">
-							<span><b>Applied Yesterday</b></span> 
-							<span>{{yesterday}}</span>
-						</div>
-						<div class="d-flex justify-content-start">
-							<span><b>Last Week</b></span> 
-							{{lastWeek}}
-						</div>
-						<div class="d-flex justify-content-start">
-							<span><b>Last Month</b></span> 
-							{{lastMonth}}
-						</div>					
-				</div>
-				<div v-else>
-						<barGraph></barGraph>
-				</div>	
-			</div>
+					</div>	
 		</div>
 </template>
 
@@ -103,18 +103,16 @@ export default {
 <style lang="scss">
 .container{
 	margin-right:500px;
-	.section{
-		.lstView {
-			margin-top:40px;
-			.d-flex{
-				margin-bottom:10px;
-			}
-		}
-	}
+	width:2000px;
 	span{
 		margin-right:10px;
+		font-size:18px;
 	}
 }
+.bar{
+	width:600px;
+}
+
 
 
 </style>

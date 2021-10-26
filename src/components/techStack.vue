@@ -1,55 +1,51 @@
 <template>
     <div class="container">
-      <b-button class="stackBtn" v-on:click="setGraphStack" variant="primary">
-          <span v-if="graphStack">stack view</span>
-          <span v-else>graph view</span>
-      </b-button> 
-
-      <div v-if="graphStack">
-
-          <div v-for="stack in topStack" :key="stack.key"> 
-            
-                <div v-if="stack.key == ' javascript'">
-                    <img id="javascript" alt="App logo" src="../assets/javascript.svg">
-                    <b-tooltip target="javascript"variant="primary" triggers="hover">
-                      <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p> 
-                    </b-tooltip> 
-                </div>
-                <div v-if="stack.key == 'python'">    
-                    <img id="python" alt="App logo" src="../assets/python.svg">
-                    <b-tooltip target="python" variant="primary" triggers="hover">
-                      <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p>  
-                    </b-tooltip>
-                </div>
-                <div v-if="stack.key == ' kubernetes'">    
-                    <img id="kubernetes" alt="App logo" src="../assets/kubernetes.svg">
-                    <b-tooltip target="kubernetes" variant="primary" triggers="hover">
-                      <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p>  
-                    </b-tooltip>
-                </div>
-                <div v-if="stack.key == ' php'">    
-                    <img id="php" alt="App logo" src="../assets/php.svg">
-                    <b-tooltip target="php" variant="primary" triggers="hover">
-                      <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p>  
-                    </b-tooltip>
-                </div>
-                <div v-if="stack.key == ' java'" >    
-                    <img id="java" alt="App logo" src="../assets/java.svg">
-                    <b-tooltip target="java" variant="primary" triggers="hover">
-                      <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p>  
-                    </b-tooltip>
-                </div>
-                <div v-if="stack.key == ' c++'" >    
-                    <img id="cplusplus" alt="App logo" src="../assets/c++.svg">
-                    <b-tooltip target="cplusplus" variant="primary" triggers="hover">
-                      <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p>  
-                    </b-tooltip>
-                </div>                                                                     
+      <div class="row">
+          <div class="col-6">
+            <chart class="line"></chart>
           </div>
-        </div>
-
-        <div v-else>
-            <chart></chart>
+          <div class="col-6 topStack" >
+              <h2>Top Stack</h2>
+              <div v-for="stack in topStack" :key="stack.key"> 
+                
+                    <div v-if="stack.key == ' javascript'">
+                        <img id="javascript" alt="App logo" src="../assets/javascript.svg">
+                        <b-tooltip target="javascript"variant="primary" triggers="hover">
+                          <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p> 
+                        </b-tooltip> 
+                    </div>
+                    <div v-if="stack.key == 'python'">    
+                        <img id="python" alt="App logo" src="../assets/python.svg">
+                        <b-tooltip target="python" variant="primary" triggers="hover">
+                          <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p>  
+                        </b-tooltip>
+                    </div>
+                    <div v-if="stack.key == ' kubernetes'">    
+                        <img id="kubernetes" alt="App logo" src="../assets/kubernetes.svg">
+                        <b-tooltip target="kubernetes" variant="primary" triggers="hover">
+                          <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p>  
+                        </b-tooltip>
+                    </div>
+                    <div v-if="stack.key == ' php'">    
+                        <img id="php" alt="App logo" src="../assets/php.svg">
+                        <b-tooltip target="php" variant="primary" triggers="hover">
+                          <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p>  
+                        </b-tooltip>
+                    </div>
+                    <div v-if="stack.key == ' java'" >    
+                        <img id="java" alt="App logo" src="../assets/java.svg">
+                        <b-tooltip target="java" variant="primary" triggers="hover">
+                          <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p>  
+                        </b-tooltip>
+                    </div>
+                    <div v-if="stack.key == ' c++'" >    
+                        <img id="cplusplus" alt="App logo" src="../assets/c++.svg">
+                        <b-tooltip target="cplusplus" variant="primary" triggers="hover">
+                          <b>{{stack.value}}</b><p> companies you applied for have <b>{{stack.key}}</b> in there stack.</p>  
+                        </b-tooltip>
+                    </div>                                                                     
+              </div>
+            </div>
         </div>
 
     </div>
@@ -70,8 +66,6 @@ export default {
     return {
         popularStack: null,
         topStack:[],
-        graphStack: false,
-
     };
   },
   mounted() {
@@ -91,9 +85,6 @@ export default {
           this.getTopStack();
           console.log("gech", this.popularStack);
       },
-      setGraphStack(){
-          this.graphStack = !this.graphStack;
-      },      
   },  
 
 };
@@ -132,6 +123,12 @@ export default {
   #python{
     height:60px;
     width:60px;
+  }
+  .line{
+    width:600px;
+  }
+  .topStack{
+    width:300px;
   }
 }
 

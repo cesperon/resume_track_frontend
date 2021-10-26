@@ -2,15 +2,22 @@
   <div class="about justify-content-center">
 <!--     <h1>Dashboard {{user.firstName}} @ {{user.email}}</h1> -->
     <div class="dashboardBtns d-flex justify-content-center">
-      <button class="add" v-on:click="openModal">+</button>
-      <div class="form d-flex">
+      <div class="form">
         <div class="form-outline">
-          <input type="search" id="form1" class="form-control" />
-          <label class="form-label" for="form1">Search</label>
+          <label class="form-label" for="form1">Search {{numApps}} Applications</label>
+          <input v-model="searchText" type="search" id="form1" class="form-control" />
         </div>
-        <button type="button" class="searchBtn btn btn-primary">
-          <b-icon icon="search"></b-icon>
-        </button>
+        <div class="row justify-content-center">
+          <button class="add col-2 me-2 mt-2" v-on:click="openModal">+</button>
+          <button type="button" class="col-2 searchBtn btn btn-primary mt-2">
+            <b-icon icon="search"></b-icon>
+          </button>
+        </div>
+          <b-dropdown id="dropdown-offset" offset="25" text="filter by" class="m-2 col-2 ">
+            <b-dropdown-item href="#" @click="filterApps('company')">company name</b-dropdown-item>
+            <b-dropdown-item href="#" @click="filterApps('company')">position</b-dropdown-item>
+            <b-dropdown-item href="#" @click="filterApps('company')">date</b-dropdown-item>
+          </b-dropdown>
       </div>
     </div>
 
@@ -18,26 +25,46 @@
     <div v-if="appDetailOpen">
       <appPopup @clicked="openAppModal" :appData="appData"></appPopup>
     </div>
-    <div class="appList" v-if="userApps">
-      <ul v-for="apps in userApps" :key="apps.company_name" class="listItem">
-        <updateForm v-if="appUpdateOpen" @addSuccess="getApplications" @clicked="openUpdateModal" :apps="updateAppData"></updateForm>
-        <div class="app" v-on:click="openPopupModal(apps)">
-            {{apps.companyName}},
-            {{apps.position}},
-            {{apps.location}},
-            {{convertDate(apps.dateApplied)}},
-          <div class="utilBtns">
-            <button class="editButton" v-on:click.stop="openUpdateModal(apps)">
-                <img class="trash" alt="App logo" src="../assets/pencil.svg">
-            </button>
-            <button class="trashButton" v-on:click.stop="deleteApp(apps.id)">
-              <img class="trash" alt="App logo" src="../assets/trash.svg">
-            </button>
-          </div>
-
+    <div v-if="!sortType">
+         <div v-if="filteredApps.length > 0" class="appList" >
+          <ul v-for="apps in filteredApps" :key="apps.company_name" class="listItem">
+            <updateForm v-if="appUpdateOpen" @addSuccess="getApplications" @clicked="openUpdateModal" :apps="updateAppData"></updateForm>
+            <div class="app col-12" v-on:click="openPopupModal(apps)">
+                {{apps.companyName}},
+                {{apps.position}},
+                {{apps.location}},
+                {{convertDate(apps.dateApplied)}},
+              <div class="utilBtns">
+                <button class="editButton" v-on:click.stop="openUpdateModal(apps)">
+                    <img class="trash" alt="App logo" src="../assets/pencil.svg">
+                </button>
+                <button class="trashButton" v-on:click.stop="deleteApp(apps.id)">
+                  <img class="trash" alt="App logo" src="../assets/trash.svg">
+                </button>
+              </div>
+            </div>
+          </ul>
+        </div>   
+        <div v-else-if="filteredApps.length == 0" class="appList col-12" >
+          <ul v-for="apps in userApps" :key="apps.company_name" class="listItem">
+            <updateForm v-if="appUpdateOpen" @addSuccess="getApplications" @clicked="openUpdateModal" :apps="updateAppData"></updateForm>
+            <div class="app" v-on:click="openPopupModal(apps)">
+                {{apps.companyName}},
+                {{apps.position}},
+                {{apps.location}},
+                {{convertDate(apps.dateApplied)}},
+              <div class="utilBtns">
+                <button class="editButton" v-on:click.stop="openUpdateModal(apps)">
+                    <img class="trash" alt="App logo" src="../assets/pencil.svg">
+                </button>
+                <button class="trashButton" v-on:click.stop="deleteApp(apps.id)">
+                  <img class="trash" alt="App logo" src="../assets/trash.svg">
+                </button>
+              </div>
+            </div>
+          </ul>
         </div>
-      </ul>
-    </div>
+     </div>
   </div>
 </template>
 
@@ -67,22 +94,34 @@
               appUpdateOpen: false,
               appData:null,
               udpateAppData:null,
+              searchText:null,
+              numApps:null,
+
 
           }    
       },
       mounted() {    
           this.getUserData();
           this.getApplications();
-      },     
+      },
+      computed: {
+          filteredApps(){
+             return this.userApps.filter((userApps)=>
+                userApps.companyName.includes(this.searchText))
+
+          },
+      } ,    
       methods: {    
-        getUserData: function() {    
+        getUserData(){    
           this.user = store.getters['userDetails'];
           this.token = store.getters["userToken"];
         },
+
         async getApplications(){
 
             await store.dispatch("getUserApp").then(async (resp) => {
             this.userApps = store.getters["userApps"];
+            this.numApps = this.userApps.length;
 
             })
             .catch(err => {
@@ -131,20 +170,19 @@
   }
 </script>
 <style lang="scss">
+#form1{
+  width:600px;
+}
 .add {
   color:$blue;
   font-size:20px;
   font-weight:bold;
-  height:40px;
-  width:100px;
+
 }
 .add:hover{
   color:$green;
 }
-.searchBtn{
 
-  height:40px;
-}
 .form{
   margin-left:50px;
 }
@@ -186,6 +224,9 @@
     .trashButton:hover{
       background:red;
       }
+    }
+    .form-control{
+      width:500px;
     }
 }
 </style>

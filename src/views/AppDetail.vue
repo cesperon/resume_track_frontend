@@ -1,12 +1,39 @@
 <template>
-		<div class="techStack d-flex justify-content-center">
-			<div class="overview">
-				<overview></overview>
-			</div>
-			<div class="tech">
-					<tech></tech>
-			</div>
+
+		<div>
+			<b-button v-b-toggle.sidebar-no-header variant="primary" >Toggle Sidebar</b-button>
+	    <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" no-header shadow>
+	      <template #default="{ hide }">
+	        <div class="p-3">
+	          <h4 id="sidebar-no-header-title">Custom header sidebar</h4>
+	          <p>
+	            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+	            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+	          </p>
+	          <nav class="mb-3 btn-nav">
+	            <b-nav vertical>
+	              <b-nav-item class="btn-nav" active @click="openGraph('totalAverages')">Total Averages</b-nav-item>
+	              <b-nav-item @click="openGraph('techStack')">Top Stack</b-nav-item>
+	              <b-nav-item href="#link-2" @click="hide">Another Link</b-nav-item>
+	            </b-nav>
+	          </nav>
+	          <b-button variant="primary" block @click="hide">Close Sidebar</b-button>
+	        </div>
+	      </template>
+	    </b-sidebar>
+
+			<div class="techStack">
+				<div class="row">
+					<div v-if="totalAverages" class="col-6 overview">
+						<overview></overview>
+					</div>
+					<div v-if="techStack" class="col-6 tech">
+							<tech></tech>
+					</div>
+				</div>	    
+	  	</div>
 		</div>
+
 </template>
 
 <script>
@@ -21,6 +48,8 @@ export default {
   data() {
   	return{
   			graphStack: false,
+  			totalAverages: true,
+  			techStack: false,
   	};
   },
   mounted() {
@@ -29,6 +58,16 @@ export default {
   methods: {
   		setGraphStack(){
   				this.graphStack = !this.graphStack;
+  		},
+  		openGraph(graphType){
+  				if(graphType == 'totalAverages'){
+  					this.totalAverages = true;
+  					this.techStack = false;
+  				}
+  				else if(graphType == 'techStack'){
+  					this.techStack = true;
+  					this.totalAverages = false;
+  				}
   		},
   },
 };
@@ -39,32 +78,22 @@ export default {
 .techStack{
 	margin-top:50px;
 }
+.btn-nav{
+	background:$nav;
+}
 .overview{
-	width:500px;
+	width:1000px;
 	box-shadow: 8px 8px 6px #888888; 	
-	margin-right:50px;
-	background:$white;
+	background:$nav;
 
 }
 .tech{
-	width:500px;
+	width:1000px;
 	box-shadow: 8px 8px 6px #888888;
-	background:$white;
+	background:$nav;
 
 }
-// .stackBtn{
-// 		margin-bottom:20px;
-// }
-.tech:hover {
 
-		// box-shadow: 8px 0 10px -4px $blue, -8px 0 6px -2px $blue;
-
-	}
-.overview:hover {
-
-		// box-shadow: 8px 0 10px -4px $blue, -8px 0 6px -2px $blue;
-
-	}
 
 
 </style>
